@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Minhas Tarefas</title>
+</head>
+<body>
+  <h1>Minhas Tarefas</h1>
+  <a href="/tasks/new">Nova Tarefa</a>
+  <table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+      <th>Título</th>
+      <th>Descrição</th>
+      <th>Status</th>
+      <th>Usuário</th>
+      <th>Ações</th>
+    </tr>
+    {% for task in tasks %}
+    <tr>
+      <td>{{ task.title }}</td>
+      <td>{{ task.description or '-' }}</td>
+      <td>{{ task.status }}</td>
+      <td>{{ task.user.name }}</td>
+      <td>
+        <form method="POST" action="/tasks/update/{{ task.id }}" style="display:inline;">
+          <button type="submit">Concluir</button>
+        </form>
+        <form method="POST" action="/tasks/delete/{{ task.id }}" style="display:inline;">
+          <button type="submit">Excluir</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>
